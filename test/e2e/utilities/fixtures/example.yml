@@ -1,0 +1,5 @@
+entity: Example
+items:
+  word0:
+    text: "example"
+    description: "@example1"

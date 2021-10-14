@@ -17,7 +17,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
@@ -26,7 +26,10 @@
     "class-validator": "0.13.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6"
+    "rxjs": "^6.6.6",
+    "sqlite": "4.0.23",
+    "sqlite3": "5.0.2",
+    "typeorm": "0.2.38"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
@@ -48,6 +51,7 @@
     "ts-loader": "^8.0.18",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
+    "typeorm-fixtures-cli": "1.9.2",
     "typescript": "^4.2.3"
   },
   "jest": {
@@ -56,15 +60,20 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
+    "testMatch": [
+      "**/*spec.ts"
+    ],
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.{ts,js}",
+      "!src/**/*Module.ts",
+      "!src/**/persistence/**/*.{ts,js}",
+      "!src/Main.ts",
+      "!src/_config/**/*.{ts,js}"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "./coverage",
     "testEnvironment": "node"
   }
 }
