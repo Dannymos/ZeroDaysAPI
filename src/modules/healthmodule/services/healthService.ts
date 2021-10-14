@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class HealthService {
+export default class HealthService {
+  // eslint-disable-next-line class-methods-use-this
   getHealth(): string {
-    return `Healthy!`;
+    return 'Healthy!';
   }
 }

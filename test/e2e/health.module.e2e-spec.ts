@@ -1,7 +1,7 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { AppModule } from '../../src/modules/appModule';
 import { INestApplication } from '@nestjs/common';
+import AppModule from '../../src/modules/appModule';
 
 describe('AppModule (e2e)', () => {
   let app: INestApplication;
@@ -15,10 +15,7 @@ describe('AppModule (e2e)', () => {
     await app.init();
   });
 
-  it('/health (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/health')
-      .expect(200)
-      .expect('Healthy!');
-  });
+  it('/health (GET)', () =>
+    // eslint-disable-next-line implicit-arrow-linebreak
+    request(app.getHttpServer()).get('/health').expect(200).expect('Healthy!'));
 });

@@ -1,0 +1,22 @@
+version: '1.0'
+
+volumes:
+  database_data:
+    driver: local
+
+services:
+  mysql:
+    image: mysql
+    volumes:
+      - database_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      interval: 10s
+      retries: 10
