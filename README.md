@@ -7,16 +7,17 @@
   
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  </p>
+
+[![Build Status](https://app.travis-ci.com/Dannymos/ZeroDaysAPI.svg?branch=master)](https://app.travis-ci.com/Dannymos/ZeroDaysAPI)
+[![Coverage Status](https://coveralls.io/repos/github/Dannymos/ZeroDaysAPI/badge.svg?branch=master)](https://coveralls.io/github/Dannymos/ZeroDaysAPI?branch=master)
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Dannymos_ZeroDaysAPI&metric=code_smells)](https://sonarcloud.io/dashboard?id=Dannymos_ZeroDaysAPI)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Dannymos_ZeroDaysAPI&metric=bugs)](https://sonarcloud.io/dashboard?id=Dannymos_ZeroDaysAPI)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Dannymos_ZeroDaysAPI&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Dannymos_ZeroDaysAPI)
+[![Hotel](https://img.shields.io/badge/Hotel-Trivago-success)](https://img.shields.io/badge/Hotel-Trivago-success)
 
 ## Description
- Built using [Nest.js](https://github.com/nestjs/nest)
-
 ZeroDays API
 
 ## Installation
