@@ -1,4 +1,4 @@
 export default interface Mapper<M, D> {
-  toDTO: (M) => D;
-  toModel: (D) => M;
+  toDTO: (model: M) => D;
+  toModel: (dto: D) => M;
 }

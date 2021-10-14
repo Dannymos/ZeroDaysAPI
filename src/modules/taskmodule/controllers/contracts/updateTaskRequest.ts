@@ -18,6 +18,8 @@ export default class UpdateTaskRequest {
   @IsOptional()
     description: string;
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   @Transform((value) => value === 'true', { toClassOnly: true })
   @IsNotEmpty()
   @IsBoolean()

@@ -77,8 +77,12 @@
     "collectCoverageFrom": [
       "src/**/*.{ts,js}",
       "!src/main.ts",
+      "!src/interfaces/**/*.{ts,js}",
       "!src/config/**/*.{ts,js}"
     ],
+    "moduleNameMapper": {
+      "^@config/(.*)$": "<rootDir>/src/_config/$1"
+    },
     "coverageDirectory": "./coverage",
     "testEnvironment": "node"
   }
