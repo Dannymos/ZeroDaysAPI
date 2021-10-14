@@ -17,5 +17,6 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
+    'react/jsx-filename-extension': 'off'
   },
 };
