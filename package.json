@@ -75,10 +75,8 @@
     },
     "collectCoverageFrom": [
       "src/**/*.{ts,js}",
-      "!src/**/*Module.ts",
-      "!src/**/persistence/**/*.{ts,js}",
-      "!src/Main.ts",
-      "!src/_config/**/*.{ts,js}"
+      "!src/main.ts",
+      "!src/config/**/*.{ts,js}"
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node"
