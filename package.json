@@ -1,8 +1,8 @@
 {
-  "name": "nest-typescript-starter",
+  "name": "ZeroDays API",
   "private": true,
   "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "description": "ZeroDays task management application API",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",

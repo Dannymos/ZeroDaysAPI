@@ -17,7 +17,7 @@
 ## Description
  Built using [Nest.js](https://github.com/nestjs/nest)
 
-NoMoreZeroDays API
+ZeroDays API
 
 ## Installation
 
