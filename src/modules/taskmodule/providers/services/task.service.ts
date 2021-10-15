@@ -12,10 +12,6 @@ export default class TaskService {
   @Inject(TaskDTOAdapter)
   private taskMapper: TaskDTOAdapter;
 
-  public async hello() {
-    return 'hello';
-  }
-
   public async createTask(dto: TaskDTO): Promise<TaskDTO> {
     const task = this.taskRepository.create(this.taskMapper.toModel(dto));
     await this.taskRepository.save(task);

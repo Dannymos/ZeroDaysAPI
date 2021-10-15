@@ -8,13 +8,13 @@ import Task from '../../model/entities/task.entity';
 @EntityRepository(Task)
 export default class TaskRepository extends Repository<Task> {
   public async updateIfExists(task: Task): Promise<Task> {
-    if (!this.taskExists(task)) return Promise.reject(new Error('Entity Not found'));
+    if (!await this.taskExists(task)) return Promise.reject(new Error('Entity Not found'));
 
     return this.save(task);
   }
 
-  public taskExists(task: Task): boolean {
-    const result = this.findOne({ id: task.id });
+  public async taskExists(task: Task): Promise<boolean> {
+    const result = await this.findOne({ id: task.id });
 
     return result !== undefined;
   }

@@ -55,9 +55,36 @@ describe('TaskModule (e2e)', () => {
       .expect(400);
   });
 
+  jest.setTimeout(30000);
+  it('updating task should return 201 when provided task exists (PUT)', async () => {
+    const mockPostRequest = {
+      title: 'test',
+      description: 'description',
+      duedate: '10/14/2021 2:01:42',
+    };
+
+    const existingTask = await request(app.getHttpServer())
+      .post('/task')
+      .send(mockPostRequest).then((response) => JSON.parse(response.text));
+
+    const mockPutRequest = {
+      id: existingTask.id,
+      title: 'test',
+      description: 'description',
+      duedate: '10/14/2021 2:01:42',
+      completed: false,
+    };
+
+    return request(app.getHttpServer())
+      .put('/task')
+      .send(mockPutRequest)
+      .expect(200);
+  });
+
   it('updating task should return 404 when provided task does not exist (PUT)', () => {
     const mockRequest = {
       id: 'e5d893cb-3005-4e2b-b6d4-3cb938ed782e',
+      title: 'test',
       description: 'description',
       duedate: '10/14/2021 2:01:42',
       completed: false,
@@ -66,7 +93,7 @@ describe('TaskModule (e2e)', () => {
     return request(app.getHttpServer())
       .put('/task')
       .send(mockRequest)
-      .expect(400);
+      .expect(404);
   });
 
   it('submit new INVALID word to /word should return 400 (POST)', () => {
