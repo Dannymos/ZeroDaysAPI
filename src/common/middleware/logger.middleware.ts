@@ -24,7 +24,7 @@ export default class LoggerMiddleware implements NestMiddleware {
         `Request resolved [${method}] ${originalUrl} : [${statusCode}] ${statusMessage} - ${requestDuration}ms`,
       );
 
-      if (Object.keys(response.req.body.length).length >= 1) this.logger.debug(`Response body: ${JSON.stringify(response.req.body)}`);
+      if (Object.keys(response.req.body).length >= 1) this.logger.debug(`Response body: ${JSON.stringify(response.req.body)}`);
     });
 
     next();
