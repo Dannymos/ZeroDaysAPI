@@ -9,7 +9,7 @@ import TaskRepository from './providers/persistence/task.repository';
 @Module({
   imports: [TypeOrmModule.forFeature([Task, TaskRepository])],
   controllers: [TaskController],
-  providers: [TaskService, TaskDTOAdapter, TaskRepository, Logger],
+  providers: [TaskService, TaskDTOAdapter, Logger],
   exports: [TaskService],
 })
 export default class TaskModule {}
