@@ -1,12 +1,10 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
-  HttpException,
-  HttpStatus,
   Inject,
-  Logger,
   NotFoundException,
   Param,
   Post,
@@ -18,9 +16,6 @@ import UpdateTaskRequest from './contracts/updateTaskRequest';
 
 @Controller('task')
 export default class TaskController {
-  @Inject(Logger)
-  private logger: Logger;
-
   @Inject(TaskService)
   private taskService: TaskService;
 
@@ -35,11 +30,11 @@ export default class TaskController {
 
       return JSON.stringify(createdTask);
     } catch (exception) {
-      this.logger.error(exception);
-      throw new HttpException({
-        status: HttpStatus.BAD_REQUEST,
-        error: exception.error,
-      }, HttpStatus.BAD_REQUEST);
+      if (exception.status === 404) {
+        throw new NotFoundException(exception.response.error);
+      } else {
+        throw new BadRequestException(exception.response.error);
+      }
     }
   }
 
@@ -50,14 +45,10 @@ export default class TaskController {
 
       return JSON.stringify(result);
     } catch (exception) {
-      this.logger.error(exception);
       if (exception.status === 404) {
         throw new NotFoundException(exception.response.error);
       } else {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: exception.error,
-        }, HttpStatus.BAD_REQUEST);
+        throw new BadRequestException(exception.response.error);
       }
     }
   }
@@ -75,14 +66,10 @@ export default class TaskController {
 
       return JSON.stringify(updatedTask);
     } catch (exception) {
-      this.logger.error(exception);
       if (exception.status === 404) {
         throw new NotFoundException(exception.response.error);
       } else {
-        throw new HttpException({
-          status: HttpStatus.BAD_REQUEST,
-          error: exception.error,
-        }, HttpStatus.BAD_REQUEST);
+        throw new BadRequestException(exception.response.error);
       }
     }
   }
