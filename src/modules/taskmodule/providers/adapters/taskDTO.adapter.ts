@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import AdapterInterface from '../../../../interfaces/adapter.interface';
+import AdapterInterface from '../../../../common/interfaces/adapter.interface';
 import Task from '../../model/entities/task.entity';
 import TaskDTO from '../../controllers/contracts/task.dto';
 
