@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import HealthModule from './healthmodule/healthModule';
-import DatabaseModule from './databaseModule';
-import TaskModule from './taskmodule/taskModule';
+import HealthModule from './health/health.module';
+import DatabaseModule from './database.module';
+import TaskModule from './taskmodule/task.module';
 
 @Module({
   imports: [DatabaseModule, TaskModule, HealthModule],

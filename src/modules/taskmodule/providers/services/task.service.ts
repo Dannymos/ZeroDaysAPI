@@ -1,16 +1,16 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import TaskDTO from '../controllers/contracts/task.dto';
-import TaskMapper from '../model/mappers/taskMapper';
-import TaskRepository from '../persistence/taskRepository';
+import TaskDTO from '../../controllers/contracts/task.dto';
+import TaskDTOAdapter from '../adapters/taskDTO.adapter';
+import TaskRepository from '../persistence/task.repository';
 
 @Injectable()
 export default class TaskService {
   @InjectRepository(TaskRepository)
   private taskRepository: TaskRepository;
 
-  @Inject(TaskMapper)
-  private taskMapper: TaskMapper;
+  @Inject(TaskDTOAdapter)
+  private taskMapper: TaskDTOAdapter;
 
   public async hello() {
     return 'hello';
@@ -30,8 +30,10 @@ export default class TaskService {
   }
 
   public async updateTask(dto: TaskDTO): Promise<TaskDTO> {
-    const task = await this.taskRepository.updateIfExists(this.taskMapper.toModel(dto));
-
-    return this.taskMapper.toDTO(task);
+    return this.taskRepository.updateIfExists(this.taskMapper.toModel(dto))
+      .then((result) => this.taskMapper.toDTO(result))
+      .catch((error) => {
+        throw new NotFoundException(error);
+      });
   }
 }

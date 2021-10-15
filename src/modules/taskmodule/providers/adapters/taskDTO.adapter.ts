@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import Mapper from '../../../../interfaces/mapper';
-import Task from '../entities/Task.entity';
+import AdapterInterface from '../../../../interfaces/adapter.interface';
+import Task from '../../model/entities/task.entity';
 import TaskDTO from '../../controllers/contracts/task.dto';
 
 @Injectable()
-export default class TaskMapper implements Mapper<Task, TaskDTO> {
+export default class TaskDTOAdapter implements AdapterInterface<Task, TaskDTO> {
   toDTO(task: Task): TaskDTO {
     return {
       id: task.id,

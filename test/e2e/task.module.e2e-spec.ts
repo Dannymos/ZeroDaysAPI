@@ -2,7 +2,7 @@ import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import TestUtilities from './utilities/test.utilities';
-import AppModule from '../../src/modules/appModule';
+import AppModule from '../../src/modules/app.module';
 
 describe('TaskModule (e2e)', () => {
   let app: INestApplication;

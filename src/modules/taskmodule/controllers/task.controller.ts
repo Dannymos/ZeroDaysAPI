@@ -12,7 +12,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import TaskService from '../services/taskService';
+import TaskService from '../providers/services/task.service';
 import CreateTaskRequest from './contracts/createTaskRequest';
 import UpdateTaskRequest from './contracts/updateTaskRequest';
 

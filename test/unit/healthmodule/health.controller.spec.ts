@@ -1,5 +1,5 @@
-import HealthService from '../../../src/modules/healthmodule/services/healthService';
-import HealthController from '../../../src/modules/healthmodule/controllers/healthController';
+import HealthService from '../../../src/modules/health/providers/services/health.service';
+import HealthController from '../../../src/modules/health/controllers/health.controller';
 
 describe('HealthController', () => {
   let healthController: HealthController;
