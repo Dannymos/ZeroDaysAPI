@@ -1,14 +1,15 @@
+/* eslint-disable no-await-in-loop,no-restricted-syntax */
 import { Inject, Injectable } from '@nestjs/common';
 import { Connection, getRepository } from 'typeorm';
 import * as path from 'path';
 import {
-  Builder, Loader, Parser, Resolver,
+  Builder, fixturesIterator, Loader, Parser, Resolver,
 } from 'typeorm-fixtures-cli/dist';
 
 @Injectable()
 export default class TestUtilities {
   @Inject(Connection)
-  connection: Connection;
+    connection: Connection;
 
   constructor() {
     if (process.env.NODE_ENV !== 'test') {
@@ -16,23 +17,23 @@ export default class TestUtilities {
     }
   }
 
-  async resetDatabase(): Promise<void> {
+  async resetDatabase() {
     return this.connection.synchronize(true);
   }
 
-  loadFixtures(): void {
-    this.resetDatabase().then(() => {
-      const loader = new Loader();
-      loader.load(path.resolve('./test/e2e/utilities/fixtures'));
+  async loadFixtures() {
+    await this.resetDatabase();
 
-      const resolver = new Resolver();
-      const fixtures = resolver.resolve(loader.fixtureConfigs);
-      const builder = new Builder(this.connection, new Parser());
+    const loader = new Loader();
+    loader.load(path.resolve('./test/e2e/utilities/fixtures'));
 
-      fixtures.forEach((fixture) => {
-        const builtEntity = builder.build(fixture);
-        getRepository(builtEntity.constructor.name).save(builtEntity);
-      });
-    });
+    const resolver = new Resolver();
+    const fixtures = resolver.resolve(loader.fixtureConfigs);
+    const builder = new Builder(this.connection, new Parser());
+
+    for (const fixture of fixturesIterator(fixtures)) {
+      const entity = await builder.build(fixture);
+      await getRepository(entity.constructor.name).save(entity);
+    }
   }
 }

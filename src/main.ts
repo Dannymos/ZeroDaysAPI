@@ -1,11 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import AppModule from './modules/appModule';
+import { ValidationPipe } from '@nestjs/common';
+import AppModule from './modules/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const isDevelopmentEnvironment = (process.env.NODE_ENV === 'development');
+  const app = await NestFactory.create(AppModule, {
+    logger: isDevelopmentEnvironment ? ['log', 'debug', 'error', 'verbose', 'warn'] : ['log', 'error', 'warn'],
+  });
 
-  if (process.env.NODE_ENV === 'development') {
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
+
+  if (isDevelopmentEnvironment) {
     const config = new DocumentBuilder()
       .setTitle('ZeroDays API')
       .setDescription('The ZeroDays API description')

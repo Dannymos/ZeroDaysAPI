@@ -1,6 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
-import HealthService from '../services/healthService';
+import { ApiTags } from '@nestjs/swagger';
+import HealthService from '../providers/services/health.service';
 
+@ApiTags('Health')
 @Controller()
 export default class HealthController {
   constructor(private readonly healthService: HealthService) {}
