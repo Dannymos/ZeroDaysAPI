@@ -38,7 +38,8 @@ export default class TaskService {
   }
 
   public async updateTask(dto: UpdateTaskDTO): Promise<Task> {
-    const task = await this.taskRepository.findOneOrFail({ id: dto.id });
+    const task = await this.taskRepository.findOneOrFail({ id: dto.id })
+      .catch((exception) => Promise.reject(new NotFoundException(exception)));
     const parent = dto.parentId ? await this.taskRepository
       .findOneOrFail({ id: dto.parentId }) : null;
 

@@ -6,7 +6,7 @@ import {
   Get,
   Inject,
   NotFoundException,
-  Param,
+  Param, ParseUUIDPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -42,7 +42,7 @@ export default class TaskController {
   }
 
   @Get(':id')
-  public async read(@Param('id') id: string): Promise<string> {
+  public async read(@Param('id', ParseUUIDPipe) id: string): Promise<string> {
     try {
       const task = await this.taskService.findTaskById(id);
 
