@@ -10,22 +10,25 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import TaskService from '../providers/services/task.service';
-import CreateTaskRequest from './contracts/createTaskRequest';
-import UpdateTaskRequest from './contracts/updateTaskRequest';
+import CreateTaskDTO from './contracts/createTask.dto';
+import UpdateTaskDTO from './contracts/updateTask.dto';
 
+@ApiTags('Task')
 @Controller('task')
 export default class TaskController {
   @Inject(TaskService)
   private taskService: TaskService;
 
   @Post()
-  public async create(@Body() request: CreateTaskRequest): Promise<string> {
+  public async create(@Body() request: CreateTaskDTO): Promise<string> {
     try {
       const createdTask = await this.taskService.createTask({
         title: request.title,
         description: request.description,
-        duedate: request.duedate,
+        duedate: request.duedate ?? null,
+        parentId: request.parentId ?? null,
       });
 
       return JSON.stringify(createdTask);
@@ -33,7 +36,7 @@ export default class TaskController {
       if (exception.status === 404) {
         throw new NotFoundException(exception.response.error);
       } else {
-        throw new BadRequestException(exception.response.error);
+        throw new BadRequestException(exception);
       }
     }
   }
@@ -41,20 +44,20 @@ export default class TaskController {
   @Get(':id')
   public async read(@Param('id') id: string): Promise<string> {
     try {
-      const result = await this.taskService.findTaskById(id);
+      const task = await this.taskService.findTaskById(id);
 
-      return JSON.stringify(result);
+      return JSON.stringify(task);
     } catch (exception) {
       if (exception.status === 404) {
         throw new NotFoundException(exception.response.error);
       } else {
-        throw new BadRequestException(exception.response.error);
+        throw new BadRequestException(exception);
       }
     }
   }
 
   @Put()
-  public async update(@Body() request: UpdateTaskRequest): Promise<string> {
+  public async update(@Body() request: UpdateTaskDTO): Promise<string> {
     try {
       const updatedTask = await this.taskService.updateTask({
         id: request.id,
@@ -62,6 +65,7 @@ export default class TaskController {
         description: request.description,
         completed: request.completed,
         duedate: request.duedate,
+        parentId: request.parentId,
       });
 
       return JSON.stringify(updatedTask);
@@ -69,7 +73,7 @@ export default class TaskController {
       if (exception.status === 404) {
         throw new NotFoundException(exception.response.error);
       } else {
-        throw new BadRequestException(exception.response.error);
+        throw new BadRequestException(exception);
       }
     }
   }

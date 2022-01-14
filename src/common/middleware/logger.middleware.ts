@@ -19,12 +19,14 @@ export default class LoggerMiddleware implements NestMiddleware {
       const finishedAt = Date.now();
       const requestDuration = (finishedAt - recievedAt);
       const { statusCode, statusMessage } = response;
-      response.get('body');
+
+      if (process.env.NODE_ENV === 'development') {
+        this.logger.debug(`Response body: ${JSON.stringify(response.req.body)}`);
+      }
+
       this.logger.log(
         `Request resolved [${method}] ${originalUrl} : [${statusCode}] ${statusMessage} - ${requestDuration}ms`,
       );
-
-      if (Object.keys(response.req.body).length >= 1) this.logger.debug(`Response body: ${JSON.stringify(response.req.body)}`);
     });
 
     next();
