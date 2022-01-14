@@ -39,11 +39,11 @@ export default class TaskDTO {
     completed: boolean;
 
   @IsOptional()
-  @ApiPropertyOptional()
-    parent?: TaskDTO | null;
-
-  @IsOptional()
   @IsUUID()
   @ApiPropertyOptional()
     parentId?: string | null;
+
+  @IsOptional()
+  @ApiPropertyOptional()
+    parent?: TaskDTO | null;
 }

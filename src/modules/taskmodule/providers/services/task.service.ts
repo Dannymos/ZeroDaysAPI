@@ -11,7 +11,8 @@ export default class TaskService {
   private taskRepository: Repository<Task>;
 
   public async createTask(dto: CreateTaskDTO): Promise<Task> {
-    const parent = dto.parentId ? await this.findTaskById(dto.parentId) : null;
+    const parent = dto.parentId ? await this.taskRepository
+      .findOneOrFail({ id: dto.parentId }) : null;
     const task = this.taskRepository.create({
       title: dto.title,
       description: dto.description,
@@ -24,14 +25,22 @@ export default class TaskService {
       .then((result) => result);
   }
 
+  public async findChildren(id: string): Promise<Task> {
+    return this.taskRepository.findOneOrFail(id, { relations: ['children'] })
+      .then((result) => result)
+      .catch((exception) => Promise.reject(new NotFoundException(exception)));
+  }
+
   public async findTaskById(id: string): Promise<Task> {
-    return this.taskRepository.findOneOrFail({ id })
-      .then((result) => result).catch(() => Promise.reject(new NotFoundException('Entity not found')));
+    return this.taskRepository.findOneOrFail(id)
+      .then((result) => result)
+      .catch((exception) => Promise.reject(new NotFoundException(exception)));
   }
 
   public async updateTask(dto: UpdateTaskDTO): Promise<Task> {
-    const task = await this.findTaskById(dto.id);
-    const parent = dto.parentId ? await this.findTaskById(dto.parentId) : null;
+    const task = await this.taskRepository.findOneOrFail({ id: dto.id });
+    const parent = dto.parentId ? await this.taskRepository
+      .findOneOrFail({ id: dto.parentId }) : null;
 
     task.title = dto.title;
     task.description = dto.description;

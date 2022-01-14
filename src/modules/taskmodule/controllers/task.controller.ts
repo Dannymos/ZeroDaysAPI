@@ -34,9 +34,9 @@ export default class TaskController {
       return JSON.stringify(createdTask);
     } catch (exception) {
       if (exception.status === 404) {
-        throw new NotFoundException(exception.response.error);
+        throw new NotFoundException(exception.message);
       } else {
-        throw new BadRequestException(exception);
+        throw new BadRequestException(exception.message);
       }
     }
   }
@@ -49,9 +49,24 @@ export default class TaskController {
       return JSON.stringify(task);
     } catch (exception) {
       if (exception.status === 404) {
-        throw new NotFoundException(exception.response.error);
+        throw new NotFoundException(exception.message);
       } else {
-        throw new BadRequestException(exception);
+        throw new BadRequestException(exception.message);
+      }
+    }
+  }
+
+  @Get(':id/children')
+  public async findChildren(@Param('id') id: string): Promise<string> {
+    try {
+      const task = await this.taskService.findChildren(id);
+
+      return JSON.stringify(task);
+    } catch (exception) {
+      if (exception.status === 404) {
+        throw new NotFoundException(exception.message);
+      } else {
+        throw new BadRequestException(exception.message);
       }
     }
   }
@@ -71,9 +86,9 @@ export default class TaskController {
       return JSON.stringify(updatedTask);
     } catch (exception) {
       if (exception.status === 404) {
-        throw new NotFoundException(exception.response.error);
+        throw new NotFoundException(exception.message);
       } else {
-        throw new BadRequestException(exception);
+        throw new BadRequestException(exception.message);
       }
     }
   }
